@@ -1,0 +1,5 @@
+==========================
+collective.renderfiletypes
+==========================
+
+User documentation
