@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
 from plone import api
 from plone.outputfilters.browser.resolveuid import uuidToObject
-from Acquisition import aq_acquire
-from Acquisition import aq_parent
 from bs4 import BeautifulSoup
 from collective.renderfiletypes.interfaces import ICollectiveRenderfiletypesLayer
 from plone.outputfilters.interfaces import IFilter
 from Products.CMFPlone.utils import safe_unicode
-from six.moves.urllib.parse import unquote
-from six.moves.urllib.parse import urljoin
 from six.moves.urllib.parse import urlsplit
 from six.moves.urllib.parse import urlunsplit
 from zope.interface import implementer
@@ -76,7 +72,6 @@ class RenderFileTypesFilter(object):
                 if not href:
                     continue
                 url_parts = urlsplit(href)
-                scheme = url_parts[0]
                 # we are only interested in path and beyond /foo/bar?x=2#abc
                 path_parts = urlunsplit(["", ""] + list(url_parts[2:]))
                 if (
