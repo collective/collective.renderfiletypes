@@ -18,4 +18,13 @@
       directory="static"
       />
 
+  <browser:page
+      name="collective.renderfiletypes.mimetypes.css"
+      for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+      class=".render_css_file.RenderCSSFile"
+      permission="zope2.View"
+      layer="..interfaces.ICollectiveRenderfiletypesLayer"
+
+      />
+
 </configure>
