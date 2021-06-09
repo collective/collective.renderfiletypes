@@ -1,7 +1,9 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.renderfiletypes">
 
+  -*- extra stuff goes here -*-
+
+  <include file="1001.zcml" />
 
 </configure>

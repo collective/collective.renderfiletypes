@@ -47,6 +47,12 @@ class RenderFileTypesFilter(object):
         ]
     )
 
+    filesizes = {
+        'KB': 'KiloBytes',
+        'MB': 'MegaBytes',
+        'GB': 'GigaBytes'
+    }
+
     # This should go before the resolveUID filter
     order = 700
 
@@ -88,16 +94,64 @@ class RenderFileTypesFilter(object):
             if file_type_information is not None:
                 file_type = file_type_information.get("file_type")
                 file_size = file_type_information.get("file_size")
+                human_size = human_readable_size(file_size)
+                
+                human_size_number, human_size_text = human_size.split(' ')
+                human_size_longtext = self.filesizes[human_size_text]
+                mimetype_registry = self.context.mimetypes_registry
+                if mimetype_registry.lookup(file_type):
+                    icon_url = mimetype_registry.lookup(file_type)[
+                        0
+                    ].icon_path
+                    contenttype = mimetype_registry.lookup(file_type)[
+                        0
+                    ].name()
+                else:
+                    icon_url = mimetype_registry.lookup("application/octet-stream")[
+                        0
+                    ].icon_path
+                    contenttype = mimetype_registry.lookup("application/octet-stream")[
+                        0
+                    ].name
+
+                file_type_image = """
+                <img src="{url}" alt="formato {contenttype}" title="archivo {contenttype}" />
+                """.format(
+                    contenttype=contenttype,
+                    url=icon_url,
+                )
+                elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
+                
                 file_type_html = """
                 <span class="type">
-                ({file_format}, {file_size})
+                ({human_size_number} <abbr title="{human_size_longtext}">{human_size_text}</abbr>)
                 </span>
                 """.format(
-                    file_format=self.mimetype_name(file_type),
-                    file_size=human_readable_size(file_size),
+                    human_size_number=human_size_number,
+                    human_size_longtext=human_size_longtext,
+                    human_size_text=human_size_text,
                 )
                 elem.append(BeautifulSoup(file_type_html, "html.parser"))
                 attributes["type"] = file_type
+            else:
+                if 'target' in attributes:
+                    target = attributes.get('target')
+                    help_text = "Abre ventana nueva"
+                    if attributes.get("data-linktype", "") == "external":
+                        if target == '_blank' or target == '_new':
+                            attributes["class"] = 'external_link_blank_icon'
+                        else:
+                            attributes["class"] = 'external_link_icon'
+                        
+                else:
+                    help_text = "Web externa"
+                    attributes["class"] = 'external_link_icon'
+
+                icon_url = "{0}/++resource++mimetype.icons/{1}".format(api.portal.get().absolute_url(), attributes["class"] + '.png')
+                file_type_image = """
+                <img src="{url}" alt="{help_text}" title="{help_text}" />
+                """.format(url=icon_url, help_text=help_text)
+                elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
 
         return six.text_type(soup)
 
@@ -123,22 +177,27 @@ class RenderFileTypesFilter(object):
 
     def get_file_type_from_object(self, obj):
         if obj.portal_type in ENABLED_TYPES:
-
+            mimetype = self.mimetype_by_extension(obj.file.filename)
+            icon_path = "{0}/{1}".format(api.portal.get().absolute_url(), mimetype.icon_path)
             return {
                 "file_type": obj.file.contentType,
                 "file_size": obj.file.size,
                 "file_filename": obj.file.filename,
+                "icon_path": icon_path,
             }
         return None
 
     def get_file_type_from_url(self, url):
         path, filename = url.rsplit("/", 1)
         mimetype = self.mimetype_by_extension(filename)
-        return {
-            "file_type": mimetype and mimetype.normalized() or "Unkown format",
-            "file_size": "Unkown size",
-            "file_filename": filename,
-        }
+        if mimetype:
+            return {
+                "file_type": mimetype and mimetype.normalized() or "Unkown format",
+                "file_size": "Unkown size",
+                "file_filename": filename,
+            }
+        else:
+            return None
 
     def _shorttag_replace(self, match):
         tag = match.group(1)
@@ -160,3 +219,8 @@ class RenderFileTypesFilter(object):
     def mimetype_by_extension(self, filename):
         mr = api.portal.get_tool("mimetypes_registry")
         return mr.lookupExtension(filename)
+
+    def get_file_type_img_url(self, url):
+        path, filename = url.rsplit("/", 1)
+        mimetype = self.mimetype_by_extension(filename)
+        return mimetype
