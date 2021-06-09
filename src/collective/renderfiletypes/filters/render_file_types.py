@@ -14,6 +14,7 @@ from collective.renderfiletypes.utils import human_readable_size
 import re
 import six
 
+from zope.i18n import translate
 
 appendix_re = re.compile("^(.*)([?#].*)$")
 resolveuid_re = re.compile("^[./]*resolve[Uu]id/([^/]*)/?(.*)$")
@@ -114,10 +115,12 @@ class RenderFileTypesFilter(object):
                         0
                     ].name
 
+                tr = translate(contenttype, 'plone', target_language='es')
+
                 file_type_image = """
                 <img src="{url}" alt="formato {contenttype}" title="archivo {contenttype}" />
                 """.format(
-                    contenttype=contenttype,
+                    contenttype=tr,
                     url=icon_url,
                 )
                 elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
