@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0b2 (unreleased)
+2.0b2 (2021-06-09)
 ------------------
 
 - translate contenttypes [ionlizarazu <ilizarazu@codesyntax.com>]
