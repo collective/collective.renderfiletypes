@@ -5,7 +5,12 @@ Changelog
 2.0b2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- translate contenttypes [ionlizarazu <ilizarazu@codesyntax.com>]
+
+-  [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- [ci skip] [ionlizarazu <ilizarazu@codesyntax.com>]
+
 
 
 2.0b1 (2021-06-09)
