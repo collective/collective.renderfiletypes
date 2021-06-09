@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0b2 (unreleased)
+2.0b1 (2021-06-09)
 ------------------
 
 - remove css generation and add as image, upgrade step [ionlizarazu <ilizarazu@codesyntax.com>]

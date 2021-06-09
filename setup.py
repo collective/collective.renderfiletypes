@@ -16,7 +16,7 @@ long_description = "\n\n".join(
 
 setup(
     name="collective.renderfiletypes",
-    version="1.0b2.dev0",
+    version="2.0b1",
     description="An addon to render file type information next to the links",
     long_description=long_description,
     # Get more from https://pypi.org/classifiers/
