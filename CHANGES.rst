@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0b3 (unreleased)
+2.0b3 (2021-06-10)
 ------------------
 
 - internal link blank [ionlizarazu <ilizarazu@codesyntax.com>]
