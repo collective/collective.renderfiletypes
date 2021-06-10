@@ -145,16 +145,22 @@ class RenderFileTypesFilter(object):
                             attributes["class"] = 'external_link_blank_icon'
                         else:
                             attributes["class"] = 'external_link_icon'
-                        
+                    elif attributes.get("data-linktype", "") == "internal":
+                        if target == '_blank' or target == '_new':
+                            attributes["class"] = 'internal_link_blank'
                 else:
-                    help_text = "Web externa"
-                    attributes["class"] = 'external_link_icon'
+                    if attributes.get("data-linktype", "") == "external":
+                        help_text = "Web externa"
+                        attributes["class"] = 'external_link_icon'
+                    else:
+                        attributes["class"] = None
 
-                icon_url = "{0}/++resource++mimetype.icons/{1}".format(api.portal.get().absolute_url(), attributes["class"] + '.png')
-                file_type_image = """
-                <img src="{url}" alt="{help_text}" title="{help_text}" />
-                """.format(url=icon_url, help_text=help_text)
-                elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
+                if attributes.get("class", None):
+                    icon_url = "{0}/++resource++mimetype.icons/{1}".format(api.portal.get().absolute_url(), attributes["class"] + '.png')
+                    file_type_image = """
+                    <img src="{url}" alt="{help_text}" title="{help_text}" />
+                    """.format(url=icon_url, help_text=help_text)
+                    elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
 
         return six.text_type(soup)
 
