@@ -5,7 +5,12 @@ Changelog
 2.0b3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- internal link blank [ionlizarazu <ilizarazu@codesyntax.com>]
+
+-  [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- [ci skip] [ionlizarazu <ilizarazu@codesyntax.com>]
+
 
 
 2.0b2 (2021-06-09)
