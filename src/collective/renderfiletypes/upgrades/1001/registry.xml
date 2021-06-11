@@ -2,7 +2,7 @@
 <registry
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="once.plone5theme">
-    <records prefix="plone.bundles/external-link-css" remove="True"
+    <records prefix="plone.bundles/collective-renderfiletypes" remove="True"
           interface="Products.CMFPlone.interfaces.IBundleRegistry">
-  </records>
+    </records>
 </registry>
