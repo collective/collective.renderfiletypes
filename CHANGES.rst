@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0b4 (unreleased)
+2.0b4 (2021-06-11)
 ------------------
 
 - modify upgrade step [ionlizarazu <ilizarazu@codesyntax.com>]
