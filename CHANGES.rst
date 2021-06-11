@@ -5,7 +5,12 @@ Changelog
 2.0b4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- modify upgrade step [ionlizarazu <ilizarazu@codesyntax.com>]
+
+-  [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- [ci skip] [ionlizarazu <ilizarazu@codesyntax.com>]
+
 
 
 2.0b3 (2021-06-10)
