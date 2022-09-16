@@ -161,7 +161,6 @@ class RenderFileTypesFilter(object):
                     <img src="{url}" alt="{help_text}" title="{help_text}" />
                     """.format(url=icon_url, help_text=help_text)
                     elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
-
         return six.text_type(soup)
 
     def resolve_link(self, href):
@@ -197,14 +196,18 @@ class RenderFileTypesFilter(object):
         return None
 
     def get_file_type_from_url(self, url):
-        path, filename = url.rsplit("/", 1)
-        mimetype = self.mimetype_by_extension(filename)
-        if mimetype:
-            return {
-                "file_type": mimetype and mimetype.normalized() or "Unkown format",
-                "file_size": "Unkown size",
-                "file_filename": filename,
-            }
+        url = url.split("//")[-1]
+        if url.find("/") != -1:
+            path, filename = url.rsplit("/", 1)
+            mimetype = self.mimetype_by_extension(filename)
+            if mimetype:
+                return {
+                    "file_type": mimetype and mimetype.normalized() or "Unkown format",
+                    "file_size": "Unkown size",
+                    "file_filename": filename,
+                }
+            else:
+                return None
         else:
             return None
 
