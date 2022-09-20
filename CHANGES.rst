@@ -5,7 +5,12 @@ Changelog
 2.0b5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- add missing cases [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+-  [ionlizarazu <ilizarazu@codesyntax.com>]
+
+- [ci skip] [ionlizarazu <ilizarazu@codesyntax.com>]
+
 
 
 2.0b4 (2021-06-11)
