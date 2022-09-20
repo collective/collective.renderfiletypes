@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0b5 (unreleased)
+2.0b5 (2022-09-20)
 ------------------
 
 - add missing cases [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
