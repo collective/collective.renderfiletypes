@@ -95,10 +95,10 @@ class RenderFileTypesFilter(object):
             if file_type_information is not None:
                 file_type = file_type_information.get("file_type")
                 file_size = file_type_information.get("file_size")
-                human_size = human_readable_size(file_size)
-                
-                human_size_number, human_size_text = human_size.split(' ')
-                human_size_longtext = self.filesizes[human_size_text]
+                if file_size != "Unkown size":
+                    human_size = human_readable_size(file_size)
+                    human_size_number, human_size_text = human_size.split(' ')
+                    human_size_longtext = self.filesizes[human_size_text]
                 mimetype_registry = self.context.mimetypes_registry
                 if mimetype_registry.lookup(file_type):
                     icon_url = mimetype_registry.lookup(file_type)[
@@ -124,17 +124,17 @@ class RenderFileTypesFilter(object):
                     url=icon_url,
                 )
                 elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
-                
-                file_type_html = """
-                <span class="type">
-                ({human_size_number} <abbr title="{human_size_longtext}">{human_size_text}</abbr>)
-                </span>
-                """.format(
-                    human_size_number=human_size_number,
-                    human_size_longtext=human_size_longtext,
-                    human_size_text=human_size_text,
-                )
-                elem.append(BeautifulSoup(file_type_html, "html.parser"))
+                if file_size != "Unkown size":
+                    file_type_html = """
+                    <span class="type">
+                    ({human_size_number} <abbr title="{human_size_longtext}">{human_size_text}</abbr>)
+                    </span>
+                    """.format(
+                        human_size_number=human_size_number if file_size!='Unknown size' else '',
+                        human_size_longtext=human_size_longtext if file_size!='Unknown size' else '',
+                        human_size_text=human_size_text if file_size!='Unknown size' else '',
+                    )
+                    elem.append(BeautifulSoup(file_type_html, "html.parser"))
                 attributes["type"] = file_type
             else:
                 if 'target' in attributes:
@@ -161,7 +161,6 @@ class RenderFileTypesFilter(object):
                     <img src="{url}" alt="{help_text}" title="{help_text}" />
                     """.format(url=icon_url, help_text=help_text)
                     elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
-
         return six.text_type(soup)
 
     def resolve_link(self, href):
@@ -197,14 +196,18 @@ class RenderFileTypesFilter(object):
         return None
 
     def get_file_type_from_url(self, url):
-        path, filename = url.rsplit("/", 1)
-        mimetype = self.mimetype_by_extension(filename)
-        if mimetype:
-            return {
-                "file_type": mimetype and mimetype.normalized() or "Unkown format",
-                "file_size": "Unkown size",
-                "file_filename": filename,
-            }
+        url = url.split("//")[-1]
+        if url.find("/") != -1:
+            path, filename = url.rsplit("/", 1)
+            mimetype = self.mimetype_by_extension(filename)
+            if mimetype:
+                return {
+                    "file_type": mimetype and mimetype.normalized() or "Unkown format",
+                    "file_size": "Unkown size",
+                    "file_filename": filename,
+                }
+            else:
+                return None
         else:
             return None
 
