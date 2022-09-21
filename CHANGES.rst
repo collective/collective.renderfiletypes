@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0b6 (unreleased)
+2.0b6 (2022-09-21)
 ------------------
 
 -  [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
