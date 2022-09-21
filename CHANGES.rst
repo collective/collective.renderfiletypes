@@ -5,7 +5,10 @@ Changelog
 2.0b6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+-  [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+- [ci skip] [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
 
 
 2.0b5 (2022-09-20)
