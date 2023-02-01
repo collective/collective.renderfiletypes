@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0b8 (unreleased)
+2.0b8 (2023-02-01)
 ------------------
 
 -  [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
