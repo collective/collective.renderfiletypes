@@ -5,7 +5,20 @@ Changelog
 2.0b8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+-  [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+- [ci skip] [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+- Preparing release 2.0b7 [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+-  [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+- [ci skip] [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+- Update changelog [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+- contemplate content import errors [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
 
 
 2.0b7 (2023-02-01)
