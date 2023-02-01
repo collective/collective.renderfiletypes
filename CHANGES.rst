@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0b7 (unreleased)
+2.0b7 (2023-02-01)
 ------------------
 
 - contemplate content import errors [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
