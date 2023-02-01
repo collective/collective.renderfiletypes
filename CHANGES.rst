@@ -5,7 +5,8 @@ Changelog
 2.0b7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- contemplate content import errors [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
 
 
 2.0b6 (2022-09-21)
