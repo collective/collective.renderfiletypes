@@ -156,10 +156,13 @@ class RenderFileTypesFilter(object):
                         attributes["class"] = None
 
                 if attributes.get("class", None):
-                    icon_url = "{0}/++resource++mimetype.icons/{1}".format(api.portal.get().absolute_url(), attributes["class"] + '.png')
-                    file_type_image = """
-                    <img src="{url}" alt="{help_text}" title="{help_text}" />
-                    """.format(url=icon_url, help_text=help_text)
+                    try:
+                        icon_url = "{0}/++resource++mimetype.icons/{1}".format(api.portal.get().absolute_url(), attributes["class"] + '.png')
+                        file_type_image = """
+                        <img src="{url}" alt="{help_text}" title="{help_text}" />
+                        """.format(url=icon_url, help_text=help_text)
+                    except:
+                        pass
                     elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
         return six.text_type(soup)
 
