@@ -5,7 +5,12 @@ Changelog
 2.0b9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- fix error when pasting content from plone4 [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+-  [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+- [ci skip] [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
 
 
 2.0b8 (2023-02-01)
