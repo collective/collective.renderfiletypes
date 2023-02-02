@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0b9 (unreleased)
+2.0b9 (2023-02-02)
 ------------------
 
 - fix error when pasting content from plone4 [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
