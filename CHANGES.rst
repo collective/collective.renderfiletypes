@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0b10 (unreleased)
+2.0b10 (2023-03-14)
 -------------------
 
 - modify python2.7 requirement from == to >= [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
