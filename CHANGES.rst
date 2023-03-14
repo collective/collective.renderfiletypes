@@ -5,7 +5,12 @@ Changelog
 2.0b10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- modify python2.7 requirement from == to >= [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+-  [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+- [ci skip] [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
 
 
 2.0b9 (2023-02-02)

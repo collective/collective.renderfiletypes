@@ -123,7 +123,7 @@ class RenderFileTypesFilter(object):
                     contenttype=tr,
                     url=icon_url,
                 )
-                elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
+                elem.append(BeautifulSoup(file_type_image, "html.parser"))
                 if file_size != "Unkown size":
                     file_type_html = """
                     <span class="type">
@@ -165,7 +165,8 @@ class RenderFileTypesFilter(object):
                     file_type_image = """
                         <img src="{url}" alt="{help_text}" title="{help_text}" />
                         """.format(url=icon_url, help_text=help_text)
-                    elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
+                    # import pdb;pdb.set_trace()
+                    elem.append(BeautifulSoup(file_type_image, "html.parser"))
         return six.text_type(soup)
 
     def resolve_link(self, href):
