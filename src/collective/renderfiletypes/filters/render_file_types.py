@@ -118,7 +118,7 @@ class RenderFileTypesFilter(object):
                 tr = translate(contenttype, 'plone', target_language='es')
 
                 file_type_image = """
-                <img src="{url}" alt="formato {contenttype}" title="archivo {contenttype}" />
+                <img src="{url}" alt="formato {contenttype}" title="archivo {contenttype}" class="file-icon" />
                 """.format(
                     contenttype=tr,
                     url=icon_url,
@@ -163,7 +163,7 @@ class RenderFileTypesFilter(object):
                     except:
                         icon_url = "{0}/++resource++mimetype.icons/unknown.png".format(api.portal.get().absolute_url(), attributes["class"])
                     file_type_image = """
-                        <img src="{url}" alt="{help_text}" title="{help_text}" />
+                        <img src="{url}" alt="{help_text}" title="{help_text}" class="type-icon" />
                         """.format(url=icon_url, help_text=help_text)
                     # import pdb;pdb.set_trace()
                     elem.append(BeautifulSoup(file_type_image, "html.parser"))
