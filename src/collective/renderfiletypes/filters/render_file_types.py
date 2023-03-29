@@ -134,6 +134,7 @@ class RenderFileTypesFilter(object):
                         human_size_longtext=human_size_longtext if file_size!='Unknown size' else '',
                         human_size_text=human_size_text if file_size!='Unknown size' else '',
                     )
+                    elem['class'] = "link-with-icon"
                     elem.append(BeautifulSoup(file_type_html, "html.parser"))
                 attributes["type"] = file_type
             else:
@@ -165,7 +166,7 @@ class RenderFileTypesFilter(object):
                     file_type_image = """
                         <img src="{url}" alt="{help_text}" title="{help_text}" class="type-icon" />
                         """.format(url=icon_url, help_text=help_text)
-                    # import pdb;pdb.set_trace()
+                    elem['class'] = "link-with-icon"
                     elem.append(BeautifulSoup(file_type_image, "html.parser"))
         return six.text_type(soup)
 
