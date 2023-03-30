@@ -5,7 +5,14 @@ Changelog
 2.0b11 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- link-with-icon class for links [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+- identify icons with same class for easier styling purposes [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+-  [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
+- [ci skip] [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
+
 
 
 2.0b10 (2023-03-14)
