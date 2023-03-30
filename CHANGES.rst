@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0b11 (unreleased)
+2.0b11 (2023-03-30)
 -------------------
 
 - link-with-icon class for links [Nagore Ruiz de Escudero <nruiz@codesyntax.com>]
