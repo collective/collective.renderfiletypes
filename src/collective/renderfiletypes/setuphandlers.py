@@ -13,6 +13,11 @@ class HiddenProfiles(object):
         ]
 
 
+    def getNonInstallableProducts(self):
+        """Hide the upgrades package from site-creation and quickinstaller."""
+        return ["collective.renderfiletypes.upgrades"]
+
+
 def post_install(context):
     """Post install script"""
     # Do something at the end of the installation of this package.
