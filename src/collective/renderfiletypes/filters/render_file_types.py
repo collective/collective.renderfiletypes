@@ -118,12 +118,12 @@ class RenderFileTypesFilter(object):
                 tr = translate(contenttype, 'plone', target_language='es')
 
                 file_type_image = """
-                <img src="{url}" alt="formato {contenttype}" title="archivo {contenttype}" />
+                <img src="{url}" alt="formato {contenttype}" title="archivo {contenttype}" class="file-icon" />
                 """.format(
                     contenttype=tr,
                     url=icon_url,
                 )
-                elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
+                elem.append(BeautifulSoup(file_type_image, "html.parser"))
                 if file_size != "Unkown size":
                     file_type_html = """
                     <span class="type">
@@ -134,6 +134,7 @@ class RenderFileTypesFilter(object):
                         human_size_longtext=human_size_longtext if file_size!='Unknown size' else '',
                         human_size_text=human_size_text if file_size!='Unknown size' else '',
                     )
+                    elem['class'] = "link-with-icon"
                     elem.append(BeautifulSoup(file_type_html, "html.parser"))
                 attributes["type"] = file_type
             else:
@@ -156,11 +157,17 @@ class RenderFileTypesFilter(object):
                         attributes["class"] = None
 
                 if attributes.get("class", None):
-                    icon_url = "{0}/++resource++mimetype.icons/{1}".format(api.portal.get().absolute_url(), attributes["class"] + '.png')
+                    try:
+                        if attributes['class'] == ['external-link']:
+                            attributes['class'] = 'external_link_icon'
+                        icon_url = "{0}/++resource++mimetype.icons/{1}".format(api.portal.get().absolute_url(), attributes["class"] + '.png')                        
+                    except:
+                        icon_url = "{0}/++resource++mimetype.icons/unknown.png".format(api.portal.get().absolute_url(), attributes["class"])
                     file_type_image = """
-                    <img src="{url}" alt="{help_text}" title="{help_text}" />
-                    """.format(url=icon_url, help_text=help_text)
-                    elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
+                        <img src="{url}" alt="{help_text}" title="{help_text}" class="type-icon" />
+                        """.format(url=icon_url, help_text=help_text)
+                    elem['class'] = "link-with-icon"
+                    elem.append(BeautifulSoup(file_type_image, "html.parser"))
         return six.text_type(soup)
 
     def resolve_link(self, href):

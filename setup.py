@@ -16,7 +16,7 @@ long_description = "\n\n".join(
 
 setup(
     name="collective.renderfiletypes",
-    version="2.0b5.dev0",
+    version="2.0b12.dev0",
     description="An addon to render file type information next to the links",
     long_description=long_description,
     # Get more from https://pypi.org/classifiers/
@@ -48,7 +48,7 @@ setup(
     package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
-    python_requires="==2.7, >=3.6",
+    python_requires=">=2.7, >=3.6",
     install_requires=[
         "setuptools",
         # -*- Extra requirements: -*-
