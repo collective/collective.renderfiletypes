@@ -2,10 +2,10 @@ Changelog
 =========
 
 
-2.0b12 (unreleased)
+3.0b1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEABGM-1522 Switch to bootstrap 5 icons and plone 6 [Rafael Bermúdez Horcajada rber474@gmail.com]
 
 
 2.0b11 (2023-03-30)

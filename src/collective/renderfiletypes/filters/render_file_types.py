@@ -7,6 +7,7 @@ from plone.outputfilters.interfaces import IFilter
 from Products.CMFPlone.utils import safe_unicode
 from six.moves.urllib.parse import urlsplit
 from six.moves.urllib.parse import urlunsplit
+from zope.component import getMultiAdapter
 from zope.interface import implementer
 from collective.renderfiletypes.utils import human_readable_size
 
@@ -19,7 +20,7 @@ from zope.i18n import translate
 appendix_re = re.compile("^(.*)([?#].*)$")
 resolveuid_re = re.compile("^[./]*resolve[Uu]id/([^/]*)/?(.*)$")
 
-ENABLED_TYPES = "File"
+ENABLED_TYPES = ["File"]
 
 
 @implementer(IFilter)
@@ -67,6 +68,8 @@ class RenderFileTypesFilter(object):
     def __call__(self, data):
         data = re.sub(r"<([^<>\s]+?)\s*/>", self._shorttag_replace, data)
         soup = BeautifulSoup(safe_unicode(data), "html.parser")
+        mimetype_registry = self.context.mimetypes_registry
+        iconresolver = getMultiAdapter((self.context, self.request), name="iconresolver")
 
         for elem in soup.find_all(["a"]):
             attributes = elem.attrs
@@ -99,31 +102,29 @@ class RenderFileTypesFilter(object):
                     human_size = human_readable_size(file_size)
                     human_size_number, human_size_text = human_size.split(' ')
                     human_size_longtext = self.filesizes[human_size_text]
-                mimetype_registry = self.context.mimetypes_registry
+
                 if mimetype_registry.lookup(file_type):
-                    icon_url = mimetype_registry.lookup(file_type)[
-                        0
-                    ].icon_path
+                    icon_name = "mimetype-%s" % file_type
                     contenttype = mimetype_registry.lookup(file_type)[
                         0
                     ].name()
                 else:
-                    icon_url = mimetype_registry.lookup("application/octet-stream")[
-                        0
-                    ].icon_path
+                    icon_name = "file"
                     contenttype = mimetype_registry.lookup("application/octet-stream")[
                         0
                     ].name
 
-                tr = translate(contenttype, 'plone', target_language='es')
-
+                lang = self.request.get("LANGUAGE", "en")
+                tr = translate(contenttype, 'plone', target_language=lang)
+                icon_url = iconresolver.url(icon_name)
                 file_type_image = """
-                <img src="{url}" alt="formato {contenttype}" title="archivo {contenttype}" class="file-icon" />
+                <img src="{url}" alt="formato {contenttype}" title="{file} {contenttype}" class="file-icon" />
                 """.format(
                     contenttype=tr,
+                    file=translate('File', 'plone', target_language=lang),
                     url=icon_url,
                 )
-                elem.append(BeautifulSoup(file_type_image, "html.parser"))
+                elem.insert(0, BeautifulSoup(file_type_image, "html.parser"))
                 if file_size != "Unkown size":
                     file_type_html = """
                     <span class="type">
@@ -135,7 +136,7 @@ class RenderFileTypesFilter(object):
                         human_size_text=human_size_text if file_size!='Unknown size' else '',
                     )
                     elem['class'] = "link-with-icon"
-                    elem.append(BeautifulSoup(file_type_html, "html.parser"))
+                    elem.insert(0, BeautifulSoup(file_type_html, "html.parser"))
                 attributes["type"] = file_type
             else:
                 if 'target' in attributes:
@@ -157,17 +158,12 @@ class RenderFileTypesFilter(object):
                         attributes["class"] = None
 
                 if attributes.get("class", None):
-                    try:
-                        if attributes['class'] == ['external-link']:
-                            attributes['class'] = 'external_link_icon'
-                        icon_url = "{0}/++resource++mimetype.icons/{1}".format(api.portal.get().absolute_url(), attributes["class"] + '.png')                        
-                    except:
-                        icon_url = "{0}/++resource++mimetype.icons/unknown.png".format(api.portal.get().absolute_url(), attributes["class"])
+                    icon_url = iconresolver.url('link-45deg')
                     file_type_image = """
                         <img src="{url}" alt="{help_text}" title="{help_text}" class="type-icon" />
                         """.format(url=icon_url, help_text=help_text)
                     elem['class'] = "link-with-icon"
-                    elem.append(BeautifulSoup(file_type_image, "html.parser"))
+                    elem.insert(0,BeautifulSoup(file_type_image, "html.parser"))
         return six.text_type(soup)
 
     def resolve_link(self, href):
