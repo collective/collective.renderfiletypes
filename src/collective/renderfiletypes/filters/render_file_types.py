@@ -136,7 +136,7 @@ class RenderFileTypesFilter(object):
                         human_size_text=human_size_text if file_size!='Unknown size' else '',
                     )
                     elem['class'] = "link-with-icon"
-                    elem.insert(0, BeautifulSoup(file_type_html, "html.parser"))
+                    elem.append(BeautifulSoup(file_type_html, "html.parser"))
                 attributes["type"] = file_type
             else:
                 if 'target' in attributes:
